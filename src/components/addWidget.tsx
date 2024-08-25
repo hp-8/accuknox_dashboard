@@ -27,10 +27,7 @@ const AddWid: React.FC = () => {
         <h2 className="p-4 text-lg font-bold bg-blue-900 text-white">Add Widget</h2>
          
         {/* Content for add widget goes here */}
-         <div className='wrapper-widget'>
-            <WidNavbar/>
-         </div>
-
+        <WidNavbar />
       </div>
 
       {/* Overlay */}

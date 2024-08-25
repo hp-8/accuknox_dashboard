@@ -14,16 +14,16 @@ interface CategoriesData {
   categories: Category[];
 }
 
-const Category = () => {
+const Category  = () => {
   const parsedData: CategoriesData = data;
 
   return (
     <div>
-      {parsedData.categories.map((category, index) => (
+      {parsedData.categories && parsedData.categories.map((category, index) => (
         <div key={index}>
           <h2>{category.name}</h2>
           <ul>
-            {Object.entries(category.widgets).map(([key, widget]) => (
+            {Object.entries(category.widgets) && Object.entries(category.widgets).map(([key, widget]) => (
               <li key={key}>{key}: {widget}</li>
             ))}
           </ul>
