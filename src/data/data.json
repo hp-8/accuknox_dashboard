@@ -1,0 +1,33 @@
+{
+    "categories": [
+      {
+        "name": "CSPW",
+        "widgets": {
+          "w1": "widget1",
+          "w2": "widget2"
+        }
+      },
+      {
+        "name": "CWPP",
+        "widgets": {
+          "w1": "widget3",
+          "w2": "widget4"
+        }
+      },
+      {
+        "name": "Image",
+        "widgets": {
+          "w1": "widget5",
+          "w2": "widget6"
+        }
+      },
+      {
+        "name": "Ticket",
+        "widgets": {
+          "w1": "widget7",
+          "w2": "widget8"
+        }
+      }
+    ]
+  }
+  
