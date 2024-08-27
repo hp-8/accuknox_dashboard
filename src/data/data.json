@@ -1,33 +1,29 @@
 {
-    "categories": [
-      {
-        "name": "CSPW",
-        "widgets": {
-          "w1": "widget1",
-          "w2": "widget2"
+  "categories": [
+    {
+      "name": "CSPM",
+      "widgets": [
+        {
+          "id": "w1",
+          "name": "Widget 1",
+          "text": "Random text for Widget 1"
+        },
+        {
+          "id": "w2",
+          "name": "Widget 2",
+          "text": "Random text for Widget 2"
         }
-      },
-      {
-        "name": "CWPP",
-        "widgets": {
-          "w1": "widget3",
-          "w2": "widget4"
+      ]
+    },
+    {
+      "name": "WSAP",
+      "widgets": [
+        {
+          "id": "w3",
+          "name": "Widget 3",
+          "text": "Random text for Widget 3"
         }
-      },
-      {
-        "name": "Image",
-        "widgets": {
-          "w1": "widget5",
-          "w2": "widget6"
-        }
-      },
-      {
-        "name": "Ticket",
-        "widgets": {
-          "w1": "widget7",
-          "w2": "widget8"
-        }
-      }
-    ]
-  }
-  
+      ]
+    }
+  ]
+}

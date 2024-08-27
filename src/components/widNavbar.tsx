@@ -1,45 +1,73 @@
-import React, { useState } from 'react';
-import data from '../data/data.json';
+import React from 'react';
+import { useWidget } from '../context/widget.context';
+import { RiCloseLine } from 'react-icons/ri';
 
-const WidNavbar: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>(data.categories[0].name);
+interface WidNavbarProps {
+  onRemoveWidget: (categoryName: string, widgetId: string) => void;
+  onSelectCategory: (categoryName: string) => void;
+  onRemoveCategory: (categoryName: string) => void;
+}
 
-  const handleCategoryClick = (categoryName: string) => {
-    setActiveCategory(categoryName);
+const WidNavbar: React.FC<WidNavbarProps> = ({ onRemoveWidget, onSelectCategory, onRemoveCategory }) => {
+  const { categories, selectedCategory, selectedWidgets, setSelectedWidgets } = useWidget();
+
+  const handleCheckboxChange = (widgetId: string) => {
+    setSelectedWidgets(prevSelected => {
+      const updatedSelected = new Set(prevSelected);
+      if (updatedSelected.has(widgetId)) {
+        updatedSelected.delete(widgetId);
+      } else {
+        updatedSelected.add(widgetId);
+      }
+      return updatedSelected;
+    });
   };
-
-  const getActiveCategoryData = () => {
-    return data.categories.find(cat => cat.name === activeCategory);
-  };
-
-  const activeCategoryData = getActiveCategoryData();
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Navbar */}
-      <div className="flex border-b-2 ">
-        {data.categories.map(category => (
-          <button
-            key={category.name}
-            className={`p-2 mr-4 text-lg font-semibold ${
-              activeCategory === category.name ? 'border-b-2 border-blue-900' : 'border-b-2 border-transparent'
-            }`}
-            onClick={() => handleCategoryClick(category.name)}
-          >
-            {category.name}
-          </button>
+    <nav className="p-4">
+      {/* Categories Navbar */}
+      <div className="flex mb-4 overflow-x-auto">
+        {categories.map(category => (
+          <div key={category.name} className="relative flex-shrink-0">
+            <button
+              onClick={() => onSelectCategory(category.name)}
+              className={`block px-4 py-2 mx-2 ${
+                selectedCategory === category.name ? 'border-b-2 border-blue-600' : ''
+              } hover:bg-gray-200`}
+            >
+              {category.name}
+            </button>
+            <RiCloseLine
+              onClick={() => onRemoveCategory(category.name)}
+              className="absolute top-1 right-1 cursor-pointer text-red-600"
+              title="Remove Category"
+            />
+          </div>
         ))}
       </div>
 
       {/* Widgets List */}
-      <div className="p-4 flex-1 overflow-y-auto">
-        {activeCategoryData && Object.values(activeCategoryData.widgets).map((widget, index) => (
-          <div key={index} className="p-2 border-b border-gray-300">
-            {widget}
-          </div>
-        ))}
-      </div>
-    </div>
+      {selectedCategory && (
+        <ul>
+          {categories.find(cat => cat.name === selectedCategory)?.widgets.map(widget => (
+            <li key={widget.id} className="flex items-center mb-2">
+              <input
+                type="checkbox"
+                checked={selectedWidgets.has(widget.id)}
+                onChange={() => handleCheckboxChange(widget.id)}
+                className="mr-2"
+              />
+              <span className="flex-1">{widget.name}</span>
+              <RiCloseLine
+                onClick={() => onRemoveWidget(selectedCategory, widget.id)}
+                className="text-red-600 cursor-pointer"
+                title="Remove Widget"
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+    </nav>
   );
 };
 
